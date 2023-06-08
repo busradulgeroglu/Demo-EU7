@@ -1,28 +1,35 @@
 pipeline {
     agent any
-    options{
-    ansiColor('gnome-terminal')
+
+    options {
+        ansiColor('xterm')
         timestamps()
-    }
+    }        
+
     stages {
-        stage('Hello') {
+        stage('Check') {
             steps {
-                echo 'Hello World'
+                echo 'Check'
             }
         }
-       stage('Build') {
+        stage('Build') {
             steps {
-                echo 'Hello World'
+                echo 'Build'
             }
         }
-                stage('Test') {
+        stage('Test') {
             steps {
-                echo 'Hello World'
+                echo 'Test'
             }
         }
-                   stage('Release') {
-               steps {
-                   echo 'Hello World'
+        stage('Release') {
+            steps {
+                echo 'Release'
+            }
+        }
+        stage('Report') {
+            steps {
+                echo 'Report'
             }
         }
     }
