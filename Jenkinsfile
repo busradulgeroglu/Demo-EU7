@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    options{
+    ansiColor('gnome-terminal')
+        timestamps()
+    }
     stages {
         stage('Hello') {
             steps {
