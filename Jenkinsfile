@@ -1,35 +1,30 @@
 pipeline {
     agent any
 
-    options {
-        ansiColor('xterm')
-        timestamps()
-    }        
-
     stages {
-        stage('Check') {
+        stage('Hello') {
             steps {
-                echo 'Check'
+                echo 'Hello World'
             }
         }
         stage('Build') {
             steps {
-                echo 'Build'
+                echo 'Hello World'
             }
         }
         stage('Test') {
             steps {
-                echo 'Test'
+                echo 'Hello World'
             }
         }
         stage('Release') {
             steps {
-                echo 'Release'
+                echo 'Hello World'
             }
         }
         stage('Report') {
             steps {
-                echo 'Report'
+                echo 'Hello World'
             }
         }
     }
