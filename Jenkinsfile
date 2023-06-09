@@ -1,30 +1,47 @@
 pipeline {
     agent any
+    tools {
+        maven 'MAVEN'
+        jdk 'JDK'
+    }
 
     stages {
-        stage('Hello') {
+        stage('Initialize') {
             steps {
-                echo 'Hello World'
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
         }
         stage('Build') {
             steps {
-                echo 'Hello World'
+                sh 'mvn -f pom.xml -B -DskipTests clean package'
+            }
+            post {
+                success {
+//                     echo "Now Archiving the Artifacts....."
+                    archiveArtifacts artifacts: '**/*.jar'
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Hello World'
+                sh 'mvn -f pom.xml test'
+                sh 'mvn clean verify -DfailIfNoTests=false'
             }
+//             post {
+//                 always {
+//                     junit 'Cucumber-Mvn-Project/target/surefire-reports/*.xml'
+//                     html 'target/cucumber-report.html'
+//                 }
+//             }
         }
-        stage('Release') {
+        stage('Cucumber Report') {
             steps {
-                echo 'Hello World'
-            }
-        }
-        stage('Report') {
-            steps {
-                echo 'Hello World'
+                cucumber buildStatus: "UNSTABLE",
+                    fileIncludePattern: "**/cucumber.json",
+                    jsonReportDirectory: "target"
             }
         }
     }
